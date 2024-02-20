@@ -10,7 +10,7 @@ public abstract class Conta implements ServicoBancario {
     String cpf;
     Double saldo;
 
-    public Conta(int numero, int agenia, String tituar, String cpf, Double saldo){
+    public Conta(int numero, int agenia, String tituar, String cpf, Double saldo) {
         this.numero = numero;
         this.agenia = agenia;
         this.tituar = tituar;
@@ -44,6 +44,6 @@ public abstract class Conta implements ServicoBancario {
 
     @Override
     public String toString() {
-        return "Conta{" + "numero=" + numero + ", agenia=" + agenia + ", tituar='" + tituar + '\'' + ", cpf='" + cpf + '\'' + ", saldo=" + saldo + '}';
+        return "Numero: " + numero + "\nAgenia: " + agenia + "\nTituar: " + tituar + "\nCPF: " + cpf + "\nSaldo: R$" + saldo;
     }
 }
