@@ -1,10 +1,13 @@
 package com.vainubank.models;
 
-public class ContaPoupanca extends Conta {
-    private String aniversario;
+import java.util.Date;
 
-    public ContaPoupanca(int numero, int agencia, String titular, String cpf, double saldo, String aniversario) {
+public class ContaPoupanca extends Conta {
+    private Date aniversario;
+
+    public ContaPoupanca(int numero, int agencia, String titular, String cpf, double saldo, Date aniversario) {
         super(numero, agencia, titular, cpf, saldo);
+        this.aniversario = aniversario;
     }
 
     @Override
@@ -26,6 +29,9 @@ public class ContaPoupanca extends Conta {
 
     @Override
     public String toString() {
-        return "ContaPoupanca{" + "aniversario='" + aniversario + '\'' + '}';
+
+        return super.toString() + "\nTipo da conta: ContaPoupanca" +
+                "\nAniversario de criação da conta: " + aniversario.toString();
+
     }
 }

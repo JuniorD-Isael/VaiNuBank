@@ -1,15 +1,16 @@
 package com.vainubank.controllers;
 
-import com.vainubank.exceptions.ContaExceptions;
+
 import com.vainubank.models.ContaCorrente;
 import com.vainubank.models.ContaPoupanca;
 import com.vainubank.models.Conta;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class ContaController {
-    public static void criarConta() {
+    public static Conta criarConta() {
         int agencia = 002;
         int numero = ControllerNumeroConta.gerarNumeroConta();
 
@@ -37,7 +38,7 @@ public class ContaController {
                 case 2:
                     // Data da criação da conta poupança
                     Date dataDeCriacao = new Date();
-                    conta = new ContaPoupanca(numero, agencia, titular, cpf, saldo, dataDeCriacao.toString());
+                    conta = new ContaPoupanca(numero, agencia, titular, cpf, saldo, dataDeCriacao);
                     System.out.println("Conta criada com sucesso!");
                     break;
                 default:
@@ -47,6 +48,7 @@ public class ContaController {
         } catch (Exception e) {
             System.out.println("Ocorreu um erro ao criar a conta: " + e.getMessage());
         }
+        return conta;
     }
 
     public static void excluirConta() {
@@ -55,11 +57,14 @@ public class ContaController {
     public static void editarConta() {
     }
 
-    public static void visualizarTodasAsContas() {
+    public static void visualizarTodasAsContas(HashMap contas) {
+        for(Object conta : contas.values()) {
+            System.out.println(conta.toString());
+        }
     }
 
     // Coletar o valor do saldo inicial da conta
-    public static double coletarSaldo(){
+    public static double coletarSaldo() {
         while (true) {
             Scanner scanner = new Scanner(System.in);
             double saldo = scanner.nextDouble();
