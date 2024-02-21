@@ -32,7 +32,8 @@ public class ContaController {
         try {
             switch (tipoConta) {
                 case 1:
-                    conta = new ContaCorrente(numero, agencia, titular, cpf, saldo);
+                    double limiteDeCredito = saldo * 0.5;
+                    conta = new ContaCorrente(numero, agencia, titular, cpf, saldo, limiteDeCredito);
                     System.out.println("Conta criada com sucesso!");
                     break;
                 case 2:

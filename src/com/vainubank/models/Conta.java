@@ -8,9 +8,9 @@ public abstract class Conta implements ServicoBancario {
     private int agenia;
     private String tituar;
     String cpf;
-    Double saldo;
+    double saldo;
 
-    public Conta(int numero, int agenia, String tituar, String cpf, Double saldo) {
+    public Conta(int numero, int agenia, String tituar, String cpf, double saldo) {
         this.numero = numero;
         this.agenia = agenia;
         this.tituar = tituar;
@@ -34,11 +34,11 @@ public abstract class Conta implements ServicoBancario {
         return cpf;
     }
 
-    public void setSaldo(Double saldo) {
+    public void setSaldo(double saldo) {
         this.saldo = saldo;
     }
 
-    public Double getSaldo() {
+    public double getSaldo() {
         return saldo;
     }
 
