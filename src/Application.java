@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 
 import com.vainubank.controllers.ContaController;
+import com.vainubank.exceptions.ContaExceptions;
 import com.vainubank.models.Conta;
 
 public class Application {
@@ -23,14 +24,23 @@ public class Application {
             int opcao = scanner.nextInt();
             switch (opcao) {
                 case 1:
-                    Conta conta = ContaController.criarConta();
+                    Conta conta = null;
+                    try {
+                        conta = ContaController.criarConta();
+                    } catch (ContaExceptions.ContaInvalidaException e) {
+                        throw new RuntimeException(e);
+                    }
                     contas.put(conta.getNumero(), conta);
                     break;
                 case 2:
                     ContaController.editarConta();
                     break;
                 case 3:
-                    ContaController.excluirConta(contas);
+                    try {
+                        ContaController.excluirConta(contas);
+                    } catch (ContaExceptions.ContaNaoEncontradaException e) {
+                        throw new RuntimeException(e);
+                    }
                     break;
                 case 4:
                     ContaController.visualizarTodasAsContas(contas);
