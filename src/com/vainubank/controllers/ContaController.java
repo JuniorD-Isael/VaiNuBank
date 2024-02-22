@@ -32,7 +32,14 @@ public class ContaController {
         try {
             switch (tipoConta) {
                 case 1:
-                    double limiteDeCredito = saldo * 0.5;
+                    double limiteDeCredito;
+
+                    if(saldo > 0) {
+                        limiteDeCredito = saldo * 0.5;
+                    } else {
+                        limiteDeCredito = 0;
+                    }
+
                     conta = new ContaCorrente(numero, agencia, titular, cpf, saldo, limiteDeCredito);
                     System.out.println("Conta criada com sucesso!");
                     break;
@@ -52,13 +59,28 @@ public class ContaController {
         return conta;
     }
 
-    public static void excluirConta() {
+    public static void excluirConta(HashMap contas) {
+        // Excluir conta por número da conta
+        try {
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Digite o número da conta que deseja excluir:");
+            int numero = scanner.nextInt();
+            if(contas.containsKey(numero)) {
+                contas.remove(numero);
+                System.out.println("Conta excluída com sucesso!");
+            } else {
+                System.out.println("Conta não encontrada!");
+            }
+        } catch (Exception e) {
+            System.out.println("Ocorreu um erro ao excluir a conta: " + e.getMessage());
+        }
     }
 
     public static void editarConta() {
     }
 
     public static void visualizarTodasAsContas(HashMap contas) {
+        System.out.println("---------------------------------------------------");
         for(Object conta : contas.values()) {
             System.out.println(conta.toString());
         }

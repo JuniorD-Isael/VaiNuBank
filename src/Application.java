@@ -12,6 +12,7 @@ public class Application {
         // Menu de interação com o usuário
         while (true) {
             Scanner scanner = new Scanner(System.in);
+            System.out.println("=====================================");
             System.out.println("Bem vindo ao VainuBank!");
             System.out.println("Escolha uma opção:" +
                     "\n1 - Criar conta" +
@@ -29,8 +30,7 @@ public class Application {
                     ContaController.editarConta();
                     break;
                 case 3:
-                    ContaController.excluirConta();
-
+                    ContaController.excluirConta(contas);
                     break;
                 case 4:
                     ContaController.visualizarTodasAsContas(contas);
