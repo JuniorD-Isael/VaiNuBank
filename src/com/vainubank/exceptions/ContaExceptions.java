@@ -7,4 +7,11 @@ public class ContaExceptions {
             super(message);
         }
     }
+
+    // Exceção para conta não encontrada
+    public static class ContaNaoEncontradaException extends Exception {
+        public ContaNaoEncontradaException(String message) {
+            super(message);
+        }
+    }
 }
