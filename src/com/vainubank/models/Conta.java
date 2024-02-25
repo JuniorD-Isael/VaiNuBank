@@ -46,4 +46,8 @@ public abstract class Conta implements ServicoBancario {
     public String toString() {
         return "Numero: " + numero + "\nAgenia: " + agenia + "\nTituar: " + tituar + "\nCPF: " + cpf + "\nSaldo: R$" + saldo;
     }
+
+    public String getTitular() {
+        return tituar;
+    }
 }

@@ -79,6 +79,24 @@ public class ContaController {
         }
     }
 
+    public static Conta buscarContaPeloNumero(HashMap<Integer, Conta> contas) {
+        // Buscar conta por número da conta
+        Conta conta = null;
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Digite o número da conta que deseja buscar:");
+        int numero = scanner.nextInt();
+        if (contas.containsKey(numero)) {
+            conta = contas.get(numero);
+            System.out.println(conta.toString());
+
+            // Menu de interação com a conta
+            menuConta(conta);
+        } else {
+            System.out.println("Conta não encontrada!");
+        }
+        return conta;
+    }
+
     public static void editarConta() {
     }
 
@@ -108,4 +126,52 @@ public class ContaController {
             }
         }
     }
+
+    // Menu para interação com o usuário para metodos de conta
+    // com a conta retornada em buscarContaPeloNumero
+    public static void menuConta(Conta conta) {
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.printf("Olá, %s! O que deseja fazer?\n", conta.getTitular());
+            System.out.println("=====================================");
+            System.out.println("Escolha uma opção:" +
+                    "\n1 - Sacar" +
+                    "\n2 - Depositar" +
+                    "\n3 - Transferir" +
+                    "\n4 - Visualizar Saldo" +
+                    "\n0 - Sair");
+            int opcao = scanner.nextInt();
+            switch (opcao) {
+                case 1:
+                    System.out.println("Digite o valor do saque:");
+                    double valorDoSaque = scanner.nextDouble();
+                    conta.sacar(valorDoSaque);
+                    break;
+                case 2:
+                    System.out.println("Digite o valor do depósito:");
+                    double valorDoDeposito = scanner.nextDouble();
+                    conta.depositar(valorDoDeposito);
+                    break;
+                case 3:
+                    System.out.println("Digite o valor da transferência:");
+                    double valorDaTransferencia = scanner.nextDouble();
+                    System.out.println("Digite a agência da conta destino:");
+                    int agencia = scanner.nextInt();
+                    System.out.println("Digite o número da conta destino:");
+                    int contaDestino = scanner.nextInt();
+                    conta.transferir(valorDaTransferencia, agencia, contaDestino);
+                    break;
+                case 4:
+                    System.out.println("Saldo atual: " + conta.getSaldo());
+                    break;
+                case 0:
+                    System.out.println("Até mais!");
+                    return;
+                default:
+                    System.out.println("Opção inválida!");
+                    break;
+            }
+        }
+    }
+
 }

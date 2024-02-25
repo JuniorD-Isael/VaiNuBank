@@ -19,7 +19,8 @@ public class Application {
                     "\n1 - Criar conta" +
                     "\n2 - Editar conta" +
                     "\n3 - Excluir conta" +
-                    "\n4 - Visualizar todas as contas" +
+                    "\n4 - Buscar uma conta pelo numero" +
+                    "\n5 - Visualizar todas as contas" +
                     "\n0 - Sair");
             int opcao = scanner.nextInt();
             switch (opcao) {
@@ -43,6 +44,8 @@ public class Application {
                     }
                     break;
                 case 4:
+                    ContaController.buscarContaPeloNumero(contas);
+                case 5:
                     ContaController.visualizarTodasAsContas(contas);
                     break;
                 case 0:

@@ -1,7 +1,7 @@
 package com.vainubank.services;
 
 public interface ServicoBancario {
-    public abstract double sacar(double valorDoSaque);
+    public abstract void sacar(double valorDoSaque);
 
     public abstract void depositar(double valorDoDeposito);
 

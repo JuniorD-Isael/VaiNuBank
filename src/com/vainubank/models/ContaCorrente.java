@@ -10,9 +10,10 @@ public class ContaCorrente extends Conta {
     }
 
     @Override
-    public double sacar(double valorDoSaque) {
-        valorDoSaque = getSaldo() - valorDoSaque;
-        return valorDoSaque;
+    public void sacar(double valorDoSaque) {
+        setSaldo(getSaldo() - valorDoSaque);
+        System.out.printf("Saque de R$%.2f realizado com sucesso!\n", valorDoSaque);
+        System.out.printf("Saldo atual: R$%.2f\n", getSaldo());
     }
 
     @Override

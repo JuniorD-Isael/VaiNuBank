@@ -11,10 +11,11 @@ public class ContaPoupanca extends Conta {
     }
 
     @Override
-    public double sacar(double valorDoSaque) {
+    public void sacar(double valorDoSaque) {
         // Saque com juros de 2% sobre o valor sacado
-        valorDoSaque = getSaldo() - valorDoSaque - (valorDoSaque * 0.02);
-        return valorDoSaque;
+        setSaldo(getSaldo() - valorDoSaque * 1.02);
+        System.out.printf("Saque de R$%.2f realizado com sucesso!\n", valorDoSaque);
+        System.out.printf("Saldo atual: R$%.2f\n", getSaldo());
     }
 
     @Override
