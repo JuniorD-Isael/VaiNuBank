@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class ContaController {
-
     public static Conta criarConta() throws ContaExceptions.ContaInvalidaException {
         int agencia = 002;
         int numero = ControllerNumeroConta.gerarNumeroConta();
@@ -79,7 +78,22 @@ public class ContaController {
         }
     }
 
-    public static void editarConta() {
+    public static Conta buscarContaPeloNumero(HashMap<Integer, Conta> contas) {
+        // Buscar conta por número da conta
+        Conta conta = null;
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Digite o número da conta que deseja buscar:");
+        int numero = scanner.nextInt();
+        if (contas.containsKey(numero)) {
+            conta = contas.get(numero);
+            System.out.println(conta.toString());
+
+            // Menu de interação com a conta
+            menuConta(conta);
+        } else {
+            System.out.println("Conta não encontrada!");
+        }
+        return conta;
     }
 
     public static void visualizarTodasAsContas(HashMap<Integer, Conta> contas) {
@@ -107,5 +121,93 @@ public class ContaController {
                 scanner.next(); // Limpar o buffer do Scanner
             }
         }
+    }
+
+    // Menu para interação com o usuário para metodos de conta
+    // com a conta retornada em buscarContaPeloNumero
+    public static void menuConta(Conta conta) {
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.printf("Olá, %s! O que deseja fazer?\n", conta.getTitular());
+            System.out.println("=====================================");
+            System.out.println("Escolha uma opção:" +
+                    "\n1 - Sacar" +
+                    "\n2 - Depositar" +
+                    "\n3 - Transferir" +
+                    "\n4 - Visualizar Saldo" +
+
+                    "\n0 - Sair");
+            int opcao = scanner.nextInt();
+            switch (opcao) {
+                case 1:
+                    System.out.println("Digite o valor do saque:");
+                    double valorDoSaque = scanner.nextDouble();
+                    conta.sacar(valorDoSaque);
+                    System.out.printf("Saque de R$%.2f realizado com sucesso!\n", valorDoSaque);
+                    System.out.printf("Saldo atual: R$%.2f\n", conta.getSaldo());
+                    break;
+                case 2:
+                    System.out.println("Digite o valor do depósito:");
+                    double valorDoDeposito = scanner.nextDouble();
+                    conta.depositar(valorDoDeposito);
+                    System.out.printf("Depósito de R$%.2f realizado com sucesso!\n", valorDoDeposito);
+                    System.out.printf("Saldo atual: R$%.2f\n", conta.getSaldo());
+                    break;
+                case 3:
+                    System.out.println("Digite o valor da transferência:");
+                    double valorDaTransferencia = scanner.nextDouble();
+                    System.out.println("Digite o número da conta destino:");
+                    int contaDestino = scanner.nextInt();
+                    conta.transferir(DbContasControllers.getDbContas(), valorDaTransferencia, contaDestino);
+                    System.out.printf("Transferência de R$%.2f para a conta %d realizada com sucesso!" +
+                            "\n", valorDaTransferencia, contaDestino);
+                    break;
+                case 4:
+                    System.out.println("Saldo atual: " + conta.getSaldo());
+                    break;
+                case 0:
+                    System.out.println("Até mais!");
+                    return;
+                default:
+                    System.out.println("Opção inválida!");
+                    break;
+            }
+        }
+    }
+
+    public static void editarConta(HashMap<Integer, Conta> contas) throws ContaExceptions.ContaNaoEncontradaException {        // Editar conta por número da conta
+        Conta conta = null;
+        Scanner scanner = new Scanner(System.in);
+        try {
+
+            System.out.println("Digite o número da conta que deseja Editar:");
+            int numero = scanner.nextInt();
+            if (contas.containsKey(numero)) {
+                conta = contas.get(numero);
+            } else {
+                throw new ContaExceptions.ContaNaoEncontradaException("Conta não encontrada!");
+            }
+        } catch (ContaExceptions.ContaNaoEncontradaException e) {
+            System.out.println("Ocorreu um erro ao editar a conta: " + e.getMessage());
+            throw e; // Re-lança a exceção para ser tratada em um nível superior, se necessário
+        }
+        System.out.printf("Olá, %s! O que deseja editar?" +
+                        "\n1 - Editar nome do titular" +
+                        "\n2 - Trocar de agencia",
+                conta.getTitular());
+        int opcao = scanner.nextInt();
+        switch (opcao) {
+            case 1:
+                System.out.println("Digite o novo nome do titular da conta:");
+                String titular = scanner.next();
+                conta.setTituar(titular);
+                System.out.printf("Nome do titular da conta editado com sucesso! \n");
+            case 2:
+                System.out.println("Digite a nova agencia da conta:");
+                int agencia = scanner.nextInt();
+                conta.setAgenia(agencia);
+                System.out.printf("Agencia da conta editada com sucesso! \n");
+        }
+        System.out.printf("Conta editada com sucesso! \n");
     }
 }

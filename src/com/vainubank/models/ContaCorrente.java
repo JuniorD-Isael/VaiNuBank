@@ -1,5 +1,7 @@
 package com.vainubank.models;
 
+import java.util.HashMap;
+
 public class ContaCorrente extends Conta {
 
     private  Double limeteDeCredito;
@@ -10,14 +12,32 @@ public class ContaCorrente extends Conta {
     }
 
     @Override
-    public double sacar(double valorDoSaque) {
-        valorDoSaque = getSaldo() - valorDoSaque;
-        return valorDoSaque;
+    public void sacar(double valorDoSaque) {
+        setSaldo(getSaldo() - valorDoSaque);
     }
 
     @Override
     public void depositar(double valorDoDeposito) {
         setSaldo(getSaldo() + valorDoDeposito);
+    }
+
+    @Override
+    public double transferir(HashMap<Integer, Conta> contas, double valorDaTransferencia, int contaDestino) {
+        Conta contaDestinoObj = null;
+        if (contas.containsKey(contaDestino)) {
+            contaDestinoObj = contas.get(contaDestino);
+        } else {
+            System.out.println("Conta destino não encontrada!");
+            return 0;
+        }
+        if (this.saldo >= valorDaTransferencia) {
+            this.saldo -= valorDaTransferencia;
+            contaDestinoObj.saldo += valorDaTransferencia;
+            return valorDaTransferencia;
+        } else {
+            System.out.println("Saldo insuficiente!");
+            return 0;
+        }
     }
 
     public double getLimeteDeCredito() {
@@ -28,10 +48,6 @@ public class ContaCorrente extends Conta {
         this.limeteDeCredito = limeteDeCredito;
     }
 
-    @Override
-    public double transferir(double valorDaTransferencia, int agencia, int contaDestino) {
-        return 0;
-    }
 
     @Override
     public String toString() {

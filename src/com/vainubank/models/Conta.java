@@ -18,12 +18,25 @@ public abstract class Conta implements ServicoBancario {
         this.saldo = saldo;
     }
 
+    public String getTitular() {
+        return tituar;
+    }
+
+
+    public void setTituar(String tituar) {
+        this.tituar = tituar;
+    }
+
     public int getNumero() {
         return numero;
     }
 
     public int getAgenia() {
         return agenia;
+    }
+
+    public void setAgenia(int agencia) {
+        this.agenia = agencia;
     }
 
     public String getTituar() {
@@ -42,8 +55,10 @@ public abstract class Conta implements ServicoBancario {
         return saldo;
     }
 
+
     @Override
     public String toString() {
         return "Numero: " + numero + "\nAgenia: " + agenia + "\nTituar: " + tituar + "\nCPF: " + cpf + "\nSaldo: R$" + saldo;
     }
+
 }
