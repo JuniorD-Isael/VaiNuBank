@@ -9,7 +9,7 @@ import com.vainubank.models.Conta;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ContaExceptions.ContaNaoEncontradaException {
         HashMap<Integer, Conta> contas = DbContasControllers.getDbContas();
         // Menu de interação com o usuário
         while (true) {
@@ -35,7 +35,7 @@ public class Application {
                     contas.put(conta.getNumero(), conta);
                     break;
                 case 2:
-                    ContaController.editarConta();
+                    ContaController.editarConta(contas);
                     break;
                 case 3:
                     try {

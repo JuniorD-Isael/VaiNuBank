@@ -96,9 +96,6 @@ public class ContaController {
         return conta;
     }
 
-    public static void editarConta() {
-    }
-
     public static void visualizarTodasAsContas(HashMap<Integer, Conta> contas) {
         System.out.println("---------------------------------------------------");
         for (Conta conta : contas.values()) {
@@ -138,6 +135,7 @@ public class ContaController {
                     "\n2 - Depositar" +
                     "\n3 - Transferir" +
                     "\n4 - Visualizar Saldo" +
+
                     "\n0 - Sair");
             int opcao = scanner.nextInt();
             switch (opcao) {
@@ -177,4 +175,39 @@ public class ContaController {
         }
     }
 
+    public static void editarConta(HashMap<Integer, Conta> contas) throws ContaExceptions.ContaNaoEncontradaException {        // Editar conta por número da conta
+        Conta conta = null;
+        Scanner scanner = new Scanner(System.in);
+        try {
+
+            System.out.println("Digite o número da conta que deseja Editar:");
+            int numero = scanner.nextInt();
+            if (contas.containsKey(numero)) {
+                conta = contas.get(numero);
+            } else {
+                throw new ContaExceptions.ContaNaoEncontradaException("Conta não encontrada!");
+            }
+        } catch (ContaExceptions.ContaNaoEncontradaException e) {
+            System.out.println("Ocorreu um erro ao editar a conta: " + e.getMessage());
+            throw e; // Re-lança a exceção para ser tratada em um nível superior, se necessário
+        }
+        System.out.printf("Olá, %s! O que deseja editar?" +
+                        "\n1 - Editar nome do titular" +
+                        "\n2 - Trocar de agencia",
+                conta.getTitular());
+        int opcao = scanner.nextInt();
+        switch (opcao) {
+            case 1:
+                System.out.println("Digite o novo nome do titular da conta:");
+                String titular = scanner.next();
+                conta.setTituar(titular);
+                System.out.printf("Nome do titular da conta editado com sucesso! \n");
+            case 2:
+                System.out.println("Digite a nova agencia da conta:");
+                int agencia = scanner.nextInt();
+                conta.setAgenia(agencia);
+                System.out.printf("Agencia da conta editada com sucesso! \n");
+        }
+        System.out.printf("Conta editada com sucesso! \n");
+    }
 }
