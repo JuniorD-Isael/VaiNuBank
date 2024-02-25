@@ -1,6 +1,9 @@
 package com.vainubank.models;
 
+import com.vainubank.controllers.ContaController;
 import com.vainubank.services.ServicoBancario;
+
+import java.util.HashMap;
 
 public abstract class Conta implements ServicoBancario {
 

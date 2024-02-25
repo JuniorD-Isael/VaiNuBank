@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class ContaController {
-
     public static Conta criarConta() throws ContaExceptions.ContaInvalidaException {
         int agencia = 002;
         int numero = ControllerNumeroConta.gerarNumeroConta();
@@ -146,20 +145,24 @@ public class ContaController {
                     System.out.println("Digite o valor do saque:");
                     double valorDoSaque = scanner.nextDouble();
                     conta.sacar(valorDoSaque);
+                    System.out.printf("Saque de R$%.2f realizado com sucesso!\n", valorDoSaque);
+                    System.out.printf("Saldo atual: R$%.2f\n", conta.getSaldo());
                     break;
                 case 2:
                     System.out.println("Digite o valor do depósito:");
                     double valorDoDeposito = scanner.nextDouble();
                     conta.depositar(valorDoDeposito);
+                    System.out.printf("Depósito de R$%.2f realizado com sucesso!\n", valorDoDeposito);
+                    System.out.printf("Saldo atual: R$%.2f\n", conta.getSaldo());
                     break;
                 case 3:
                     System.out.println("Digite o valor da transferência:");
                     double valorDaTransferencia = scanner.nextDouble();
-                    System.out.println("Digite a agência da conta destino:");
-                    int agencia = scanner.nextInt();
                     System.out.println("Digite o número da conta destino:");
                     int contaDestino = scanner.nextInt();
-                    conta.transferir(valorDaTransferencia, agencia, contaDestino);
+                    conta.transferir(DbContasControllers.getDbContas(), valorDaTransferencia, contaDestino);
+                    System.out.printf("Transferência de R$%.2f para a conta %d realizada com sucesso!" +
+                            "\n", valorDaTransferencia, contaDestino);
                     break;
                 case 4:
                     System.out.println("Saldo atual: " + conta.getSaldo());

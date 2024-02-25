@@ -3,13 +3,14 @@ import java.util.Scanner;
 
 
 import com.vainubank.controllers.ContaController;
+import com.vainubank.controllers.DbContasControllers;
 import com.vainubank.exceptions.ContaExceptions;
 import com.vainubank.models.Conta;
 
 public class Application {
 
     public static void main(String[] args) {
-        HashMap<Integer, Conta> contas = new HashMap<>();
+        HashMap<Integer, Conta> contas = DbContasControllers.getDbContas();
         // Menu de interação com o usuário
         while (true) {
             Scanner scanner = new Scanner(System.in);
